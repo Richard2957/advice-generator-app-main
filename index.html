@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- displays site properly based on user's device -->
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+  <link rel="stylesheet" href="style.css">
+  <title>Frontend Mentor | Advice generator app</title>
+
+  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+  <style>
+    .attribution {
+      font-size: 11px;
+      text-align: center;
+      position: absolute;
+      bottom: 10px;
+      background-color: var(--dark);
+      color: var(--text);
+      padding: 2px 4px;
+    }
+
+    .attribution a {
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .attribution a:hover {
+      color: var(--card)
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="card">
+    <div class="advice-number"> Advice #</div>
+
+    <div class="advice">Villlum I have give it to you food</div>
+    <div class="spacer"></div>
+    <div class="dice">
+
+      <svg width="400" height="400" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="400" height="400" fill="transparent" />
+        <rect id="rect1" x="72" y="67" width="265" height="265" rx="50" fill="#323a49" />
+        <circle id="ellipse1" cx="142.5" cy="150.5" r="17.5" />
+        <circle id="ellipse5" cx="267.5" cy="150.5" r="17.5" fill="white" />
+        <circle id="ellipse4" cx="142.5" cy="249.5" r="17.5" fill="white" />
+        <circle id="ellipse3" cx="204.5" cy="199.5" r="17.5" fill="white" />
+        <circle id="ellipse2" cx="267.5" cy="249.5" r="17.5" fill="white" />
+      </svg>
+
+
+
+
+
+    </div>
+  </div>
+  <div class="attribution">
+    Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>.
+    Coded by <a href="#">Your Name Here</a>.
+  </div>
+
+  <script>
+    let nextmessage = [];
+
+const advice=  document.querySelector('.advice');
+    document.querySelector(".dice").addEventListener("click", () => {
+      nextmessage = {};
+    advice.classList.add("blurit");
+
+
+      const fPromise = fetch("https://api.adviceslip.com/advice?1145");
+      fPromise.then(response => {
+console.log(response)
+if (response.statusText=="OK") {return response.json() }else throw new Error('Network response was not OK');
+
+        })
+        .then(data => {
+ 
+    nextmessage[0]=data.slip.advice;
+    nextmessage[1]=data.slip.id;
+    
+    console.log ('just got ' ,data)
+        })
+
+
+        .catch(e => {
+          console.log(e)
+        })
+
+    })
+
+advice.addEventListener('animationend',e=>{
+if(e.animationName=="bluritani"){
+if(nextmessage[0]){
+advice.innerHTML=nextmessage[0]
+
+
+}
+
+
+
+  advice.classList.add("unblurit")
+} else{
+  advice.classList.remove("blurit");
+  advice.classList.remove("unblurit");
+}
+
+
+
+})
+
+
+
+
+  </script>
+
+
+</body>
+
+</html>

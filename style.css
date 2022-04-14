@@ -1,0 +1,138 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@800&display=swap');
+:root{
+    --text:#cee3e9;
+--green:#52ffa8;
+--dark:#4e5d73;
+--card:#323a49;
+--body:#1f2632;
+}
+body{
+    font-family: 'Manrope', sans-serif;
+    font-weight: 800;;
+    background-color: var(--body);
+min-height: 100vh;
+display:flex;
+justify-content: center;
+align-items: center;
+}
+
+
+.card{
+    background-color: var(--card);
+    width:540px;
+    height:335px;
+display:flex;
+flex-direction: column;
+justify-content: space-evenly;
+align-items: center;
+position:relative;
+
+}
+.advice-number{
+color:var(--green);
+font-size:18px;
+}
+
+.advice{
+color:var(--green);
+font-size: 30px;
+
+}
+
+.blurit{
+    animation:bluritani 2s ease forwards;
+}
+
+.unblurit{
+    animation:unbluritani 2s ease forwards ;
+}
+
+@keyframes bluritani {
+    from{
+        filter:blur(0);
+        transform: scale(1,1);
+    }
+    to{
+        filter:blur(30px);
+        transform: scale(.4,.3);
+    }
+}
+
+@keyframes unbluritani {
+   to{
+        filter:blur(0);
+        transform: scale(1,1);
+    }
+    from{
+        filter:blur(30px);
+        transform: scale(.4,.3);
+    }
+}
+
+
+.spacer{
+    width:100%;
+    background:url(./images/pattern-divider-desktop.svg) no-repeat;
+    height:30px;
+    background-position: center;;
+  
+}
+
+.dice{
+    position:absolute;
+    left:50%;
+    transform:translate(-50%, 50%);
+    bottom:0;
+    width:100px;
+    height:100px;
+  background-color: var(--green);
+    border-radius: 50%;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.dice:hover{
+box-shadow: 0px 0px 4px 4px hsla(150, 100%, 66%,.2),
+0px 0px 8px 4px hsla(150, 100%, 66%,.2),
+0px 0px 16px 4px hsla(150, 100%, 66%,.2),
+0px 0px 32px 4px hsla(150, 100%, 66%,.2)
+
+
+
+;
+
+
+}
+
+svg{
+    width:50px;
+    height:50px;
+}
+
+ #ellipse1, #ellipse2, #ellipse3, #ellipse4, #ellipse5{
+    fill:var(--green);
+}
+
+
+@media screen and (max-width:600px) {
+
+    .card{
+        width:90%;
+        height:auto;
+    }
+    .card >*{
+        padding : 50px 0;
+    }
+.spacer{
+    margin-bottom:50px;
+}
+    
+}
