@@ -41,7 +41,8 @@ font-size:18px;
 
 .advice{
 color:var(--green);
-font-size: 30px;
+font-size: 26px;
+padding:0  10%;
 
 }
 
@@ -80,6 +81,7 @@ font-size: 30px;
     width:100%;
     background:url(./images/pattern-divider-desktop.svg) no-repeat;
     height:30px;
+    margin:6px;
     background-position: center;;
   
 }
@@ -104,23 +106,32 @@ box-shadow: 0px 0px 4px 4px hsla(150, 100%, 66%,.2),
 0px 0px 8px 4px hsla(150, 100%, 66%,.2),
 0px 0px 16px 4px hsla(150, 100%, 66%,.2),
 0px 0px 32px 4px hsla(150, 100%, 66%,.2)
-
-
-
 ;
-
-
 }
-
 svg{
     width:50px;
     height:50px;
+    animation:1s  linear;
 }
 
+@keyframes svgani {
+    to{transform:rotate(180deg)}
+    
+}
  #ellipse1, #ellipse2, #ellipse3, #ellipse4, #ellipse5{
     fill:var(--green);
 }
+#ellipse1{animation :  1s  infinite ;}
+#ellipse2{animation : 1.5s  infinite ;}
+#ellipse3{animation :2s  infinite ;}
+#ellipse4{animation :  1.3s .2s infinite ;}
+#ellipse5{animation : 3s  infinite;}
 
+
+@keyframes ellani {
+    0%, 10%, 20%,  80% {fill:var(--dark)};
+    11%,35% ,90%  ,100% {fill:var(--green)};
+    }
 
 @media screen and (max-width:600px) {
 

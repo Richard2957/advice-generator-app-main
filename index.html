@@ -38,7 +38,7 @@
   <div class="card">
     <div class="advice-number"> Advice #</div>
 
-    <div class="advice">Villlum I have give it to you food</div>
+    <div class="advice">Most things don't matter that much. And really, most things don't matter at all.</div>
     <div class="spacer"></div>
     <div class="dice">
 
@@ -64,58 +64,80 @@
   </div>
 
   <script>
-    let nextmessage = [];
+    const nextmessage = [];
 
-const advice=  document.querySelector('.advice');
+
+    // fetch('https://api.adviceslip.com/advice')
+    //   .then(response => response.json())
+    //   .then(data => console.log(data.slip.advice));
+
+
+
+
+
+    const advice = document.querySelector('.advice');
+    const adviceNumber = document.querySelector('.advice-number');
+    const ellipses = [...document.querySelectorAll("#ellipse1,#ellipse2,#ellipse3,#ellipse4,#ellipse5")];
+const svg=document.querySelector("svg");
+
     document.querySelector(".dice").addEventListener("click", () => {
-      nextmessage = {};
-    advice.classList.add("blurit");
+      nextmessage[0] = "";
 
-
-      const fPromise = fetch("https://api.adviceslip.com/advice?1145");
-      fPromise.then(response => {
-console.log(response)
-if (response.statusText=="OK") {return response.json() }else throw new Error('Network response was not OK');
-
+      // Start the animations
+      advice.classList.add("blurit");
+      adviceNumber.classList.add("blurit");
+ellipses.forEach(x=>x.style.animationName="ellani");
+svg.style.animationName="none";
+// Fetch the new Advice -- add a timestamp to URL to prevent browser caching
+      const d = new Date();
+      fetch("https://api.adviceslip.com/advice?s=" + d.getUTCSeconds + d.getMilliseconds())
+        .then(response => {
+          if (response.status !== 200) throw new Error("Incorrect response from API");
+          return response.json();
         })
         .then(data => {
- 
-    nextmessage[0]=data.slip.advice;
-    nextmessage[1]=data.slip.id;
-    
-    console.log ('just got ' ,data)
+          nextmessage[0] = data.slip.advice;
+          nextmessage[1] = data.slip.id;
         })
-
-
         .catch(e => {
-          console.log(e)
-        })
+          nextmessage[0] = "error = check network"
+
+        });
+    });
+
+    // Animation-end events
+    advice.addEventListener('animationend', e => {
+      switch (e.animationName) {
+        case "bluritani": {
+          if (nextmessage[0]) {
+            advice.innerHTML = nextmessage[0];
+            adviceNumber.innerHTML = "Advice " + nextmessage[1];
+            nextmessage[0] = "";
+
+          } else advice.innerHTML = "Error"
+advice.classList.add("unblurit")
+          adviceNumber.classList.add("unblurit");
+          break;
+        }
+        case "unbluritani": {
+          advice.classList.remove("blurit");
+          advice.classList.remove("unblurit");
+          adviceNumber.classList.remove("blurit");
+          adviceNumber.classList.remove("unblurit");
+          ellipses.forEach(x=>x.style.animationName="");
+          svg.style.animationName="svgani"
+          break;
+
+        }
+
+
+      }
+
+      
 
     })
 
-advice.addEventListener('animationend',e=>{
-if(e.animationName=="bluritani"){
-if(nextmessage[0]){
-advice.innerHTML=nextmessage[0]
-
-
-}
-
-
-
-  advice.classList.add("unblurit")
-} else{
-  advice.classList.remove("blurit");
-  advice.classList.remove("unblurit");
-}
-
-
-
-})
-
-
-
-
+  
   </script>
 
 
